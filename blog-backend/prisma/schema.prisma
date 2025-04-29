@@ -1,0 +1,57 @@
+/**
+ * tells Prisma to generate a client library that I can use in my app
+ * to query the db
+ * - the client outputs to node_modules/.prisma/client
+ */
+generator client {
+    provider = "prisma-client-js"
+}
+
+// defines my db connection
+datasource db {
+    // tells Prisma I'm using PostgreSQL as the DB engine 
+    provider = "postgresql"
+    // connection string is stored in an environment variable
+    url      = env("DATABASE_URL")
+}
+
+// posts and comments
+model Post {
+    id        Int       @id @default(autoincrement())
+    // will display timestamp for post
+    createdAt DateTime  @default(now())
+    // posts have titles
+    title     String    @db.VarChar(255)
+    content   String?
+    /**
+     * designates published vs unpublished posts
+     * unpublished posts are in the db but are not published for the
+     * public to read
+     */
+    published Boolean   @default(false)
+    author    User      @relation(fields: [authorId], references: [id])
+    authorId  Int
+    comments  Comment[]
+}
+
+model Comment {
+    id        Int      @id @default(autoincrement())
+    // will display timestamp for comment
+    createdAt DateTime @default(now())
+    // comments don't have titles
+    content   String
+    // will require users to leave a email with their comments
+    author    User     @relation(fields: [authorId], references: [id])
+    authorId  Int
+    post      Post     @relation(fields: [postId], references: [id])
+    postId    Int
+}
+
+model User {
+    id       Int       @id @default(autoincrement())
+    name     String
+    username String    @unique
+    password String
+    posts    Post[]
+    comments Comment[]
+}
