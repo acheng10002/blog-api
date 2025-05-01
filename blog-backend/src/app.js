@@ -34,6 +34,10 @@ passport.use(localStrategy);
 passport.use(jwtStrategy);
 app.use(passport.initialize());
 
+app.get("/", (req, res) => {
+  res.send("API is running");
+});
+
 /* router-level middleware - route definitions that registers routers into 
 my main app */
 app.use("/auth", authRoutes);
@@ -56,4 +60,7 @@ the signature
 of the user in the `payload.sub`, looks the user up in the db, and stores the
 user object to use
 6. user receives route data and gets access to protected routes
+
+curl - command-line tool used to send HTTP requests to a server
+
 */

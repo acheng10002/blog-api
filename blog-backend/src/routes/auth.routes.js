@@ -7,6 +7,7 @@ const router = express.Router();
 // controller functions to fullfill login and logout requests
 const { login, logout } = require("../controllers/auth.controller");
 
+// POST /auth/login WORKS
 // this file is mounted on /auth in app.js
 // authenticates and logins user
 router.post(
@@ -19,6 +20,7 @@ router.post(
   login
 );
 
+// POST /auth/logout WORKS
 // stateless logout, with no session to destroy
 router.post("/logout", logout);
 

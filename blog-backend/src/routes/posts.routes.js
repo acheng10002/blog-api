@@ -13,12 +13,15 @@ const {
   deletePostController,
 } = require("../controllers/posts.controller");
 
+// GET /posts/ WORKS
 // public route for getting all posts without comments
 router.get("/", getAllPostsController);
 
+// GET /posts/1 WORKS
 // public route for getting specific post with its comments
 router.get("/:postid", getPostByIdController);
 
+// POST /posts/ WORKS
 // protected route for creating a post as a logged in user
 router.post(
   "/",
@@ -26,6 +29,7 @@ router.post(
   createPostController
 );
 
+// PUT /posts/1 WORKS
 // protected route for updating a post as a logged in user
 router.put(
   "/:postid",
@@ -33,6 +37,7 @@ router.put(
   updatePostController
 );
 
+// DELETE /posts/1 WORKS
 // protected route for deleting a post as a logged in user
 router.delete(
   "/:postid",

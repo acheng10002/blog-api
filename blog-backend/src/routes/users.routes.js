@@ -10,10 +10,12 @@ const {
   getUserPostsController,
 } = require("../controllers/users.controller");
 
+// POST /users/ WORKS
 // this file is mounted on /users in app.js
 // user submits registration details
 router.post("/", registerController);
 
+// GET /users/1/posts WORKS
 // protected route for getting the user's posts
 router.get(
   "/:userid/posts",

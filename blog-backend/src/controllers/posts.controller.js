@@ -1,13 +1,13 @@
-// db access layer
-const prisma = require("../db/prisma");
-const { authorizeOwnership } = require("../utils/authorization");
+const { handleWithOwnership } = require("../utils/handleWithOwnership");
 const {
   getAllPosts,
   getPostById,
   createPost,
   updatePost,
   deletePost,
+  getPostByIdForAuthorization,
 } = require("../services/post.service");
+const ApiError = require("../utils/ApiError");
 
 const getAllPostsController = async (req, res) => {
   try {
@@ -16,6 +16,8 @@ const getAllPostsController = async (req, res) => {
     res.json(posts);
     // error handling
   } catch (err) {
+    console.log("Failed to fetch posts:", err);
+    if (err instanceof ApiError) throw err;
     throw new ApiError(500, "Failed to fetch posts");
   }
 };
@@ -34,6 +36,8 @@ const getPostByIdController = async (req, res) => {
     // if successful, return post as JSON
     res.json(post);
   } catch (err) {
+    console.log("Failed to fetch post:", err);
+    if (err instanceof ApiError) throw err;
     throw new ApiError(500, "Failed to fetch post");
   }
 };
@@ -55,53 +59,57 @@ const createPostController = async (req, res) => {
     res.status(201).json(post);
     // error handling
   } catch (err) {
+    console.log("Failed to create post:", err);
+    if (err instanceof ApiError) throw err;
     throw new ApiError(500, "Failed to create post");
   }
 };
 
 const updatePostController = async (req, res) => {
-  // extracts the postid parameter from the route and parses it into an integer
+  // 1. extracts the postid parameter from the route and parses it into an integer
   const postId = Number(req.params.postid);
   // extracts title, content, and published from request body
   const { title, content, published } = req.body;
 
   try {
-    // queries Post table via Prisma to find specific post
-    const existingPost = await prisma.post.findUnique({
-      where: { id: postId },
+    const updatedPost = await handleWithOwnership({
+      // queries Post table via Prisma to find specific post
+      fetchResource: () => getPostByIdForAuthorization(postId),
+      // 2. validates ownership - checks if current user is allowed to perform this action
+      userId: req.user.id,
+      // 3. calls service function
+      action: () => updatePost(postId, { title, content, published }),
     });
-
-    // checks if current user is allowed to performa this action
-    authorizeOwnership(existingPost, req.user.id);
-
-    const updatedPost = await updatePost(postId, { title, content, published });
-
-    // returns the updated post as JSON
+    // 4. returns the updated post as JSON
     res.json(updatedPost);
+
     // error handling
   } catch (err) {
+    console.log("Failed to update post:", err);
+    if (err instanceof ApiError) throw err;
     throw new ApiError(500, "Failed to update post");
   }
 };
 
 const deletePostController = async (req, res) => {
-  // extracts the postid parameter from the route and parses it into an integer
+  // 1. extracts the postid parameter from the route and parses it into an integer
   const postId = Number(req.params.postid);
 
   try {
-    // queries Post table via Prisma to find specific post
-    const existingPost = await prisma.post.findUnique({
-      where: { id: postId },
+    await handleWithOwnership({
+      // queries Post table via Prisma to find specific post
+      fetchResource: () => getPostByIdForAuthorization(postId),
+      // 2. validates ownership - checks if current user is allowed to perform this action
+      userId: req.user.id,
+      // 3. call service function
+      action: () => deletePost(postId),
     });
-
-    // checks if current user is allowed to performa this action
-    authorizeOwnership(existingPost, req.user.id);
-
-    const deletedPost = await deletePost(postId);
-    // return a success message as JSON
-    res.json({ message: "Post deleted successfully", deletedPost });
+    // 4. returns response - a success message as JSON
+    res.status(204).json({ message: "Post deleted successfully" });
     // error handling
   } catch (err) {
+    console.log("Failed to delete post:", err);
+    if (err instanceof ApiError) throw err;
     throw new ApiError(500, "Failed to delete post");
   }
 };

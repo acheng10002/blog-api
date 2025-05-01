@@ -1,20 +1,19 @@
 // for hashing passwords
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const { register, getUserPosts } = require("../services/user.service");
 const ApiError = require("../utils/ApiError");
 
-const registerController = async (req, res) => {
+const registerController = async (req, res, next) => {
   // destructures username and pw from request body
-  const { username, password } = req.body;
+  const { name, username, password } = req.body;
   // hashes the password
   const hash = await bcrypt.hash(password, 10);
   try {
-    await register(username, hash);
+    await register(name, username, hash);
     // redirects to login on success
     res.redirect("/login");
   } catch (err) {
-    // shows error if already user exists
-    throw new ApiError(400, "User already exists");
+    next(err);
   }
 };
 

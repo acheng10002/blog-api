@@ -3,7 +3,7 @@ require("dotenv").config();
 // db access layer
 const prisma = require("../db/prisma");
 // for hashing passwords
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 // Passport JWT strategy components
 const { Strategy: LocalStrategy } = require("passport-local");
 const { Strategy: JwtStrategy, ExtractJwt } = require("passport-jwt");
@@ -19,6 +19,10 @@ const localStrategy = new LocalStrategy(async (username, password, done) => {
     /* queries the db, specifically the user model, for a user whoses username
     matches the input */
     const user = await prisma.user.findUnique({ where: { username } });
+
+    console.log("Attempting login for:", username);
+    console.log("Found user:", user);
+
     // if user is not found, return - no error, no user object, and Passport error message
     if (!user) return done(null, false, { message: "Incorrect username." });
 
@@ -26,6 +30,7 @@ const localStrategy = new LocalStrategy(async (username, password, done) => {
     const isValid = await bcrypt.compare(password, user.password);
     // if pw doesn't match, return - no error, no user object, and Passport error message
     if (!isValid) return done(null, false, { message: "Incorrect password." });
+    console.log("Password match:", isValid);
 
     //if username and pw are valid, authentication success, return - no error, and user object
     return done(null, user);

@@ -10,6 +10,7 @@ const {
   deleteCommentController,
 } = require("../controllers/comments.controller");
 
+// POST /posts/1/comments WORKS
 /* :postid is defined in the route definitions
 - so no need to tell Express to merge parent route params into the child router's 
 req.params 
@@ -22,6 +23,7 @@ router.post(
   createCommentController
 );
 
+// PUT /posts/1/comments/1 WORKS
 // protected route to update a comment on a post
 router.put(
   "/:postid/comments/:commentid",
@@ -29,6 +31,7 @@ router.put(
   updateCommentController
 );
 
+// DELETE /posts/1/comments/1 WORKS
 // protected route to delete a comment on a post
 router.delete(
   "/:postid/comments/:commentid",

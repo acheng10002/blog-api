@@ -80,10 +80,18 @@ async function deletePost(postId) {
   });
 }
 
+async function getPostByIdForAuthorization(postId) {
+  // queries Post table via Prisma to find specific post
+  return prisma.post.findUnique({
+    where: { id: postId },
+  });
+}
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
   updatePost,
   deletePost,
+  getPostByIdForAuthorization,
 };

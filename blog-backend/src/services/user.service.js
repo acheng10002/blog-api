@@ -1,9 +1,22 @@
 // db access layer
 const prisma = require("../db/prisma");
+const { Prisma } = require("@prisma/client");
 
-async function register(username, hash) {
-  // creates a new user
-  return prisma.user.create({ data: { username, password: hash } });
+async function register(name, username, hash) {
+  try {
+    // creates a new user
+    return await prisma.user.create({
+      data: { name, username, password: hash },
+    });
+  } catch (err) {
+    if (
+      err instanceof Prisma.PrismaClientKnownRequestError &&
+      err.code === "P2002"
+    ) {
+      throw new ApiError(400, "User already exists");
+    }
+    throw err;
+  }
 }
 
 async function getUserPosts(authenticatedId) {

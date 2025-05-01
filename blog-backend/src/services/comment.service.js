@@ -54,8 +54,16 @@ async function deleteComment(commentId) {
   });
 }
 
+async function getCommentByIdForAuthorization(commentId) {
+  // queries Post table via Prisma to find specific post
+  return prisma.comment.findUnique({
+    where: { id: commentId },
+  });
+}
+
 module.exports = {
   createComment,
   updateComment,
   deleteComment,
+  getCommentByIdForAuthorization,
 };
