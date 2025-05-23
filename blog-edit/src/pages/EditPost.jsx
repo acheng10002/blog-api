@@ -22,13 +22,16 @@ const EditPost = () => {
     data: initialValues,
     loading,
     error,
-  } = useFetchData(`http://localhost:3000/posts/${postid}`, token);
+  } = useFetchData(
+    `${import.meta.env.VITE_API_BASE_URL}/posts/${postid}`,
+    token
+  );
 
   // handles the form submission
   const handleUpdate = async (data) => {
     try {
       // sends a PUT request to update the post
-      await apiFetch(`http://localhost:3000/posts/${postid}`, {
+      await apiFetch(`${import.meta.env.VITE_API_BASE_URL}/posts/${postid}`, {
         method: "PUT",
         // data payload gets passed in the request body
         body: data,

@@ -22,7 +22,7 @@ const UserPosts = () => {
     error,
   } = useFetchData(
     user && token && user.id
-      ? `http://localhost:3000/users/${userid}/posts`
+      ? `${import.meta.env.VITE_API_BASE_URL}/users/${userid}/posts`
       : null,
     token
   );

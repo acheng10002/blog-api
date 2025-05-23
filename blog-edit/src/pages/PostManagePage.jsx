@@ -29,7 +29,10 @@ const PostManagePage = () => {
     loading,
     error,
     // automatically includes auth header if token exists
-  } = useFetchData(`http://localhost:3000/posts/${postid}`, token || undefined);
+  } = useFetchData(
+    `${import.meta.env.VITE_API_BASE_URL}/posts/${postid}`,
+    token || undefined
+  );
 
   // early return if loading or error, and fallback UI if post doesn't exist
   if (loading || error) {
@@ -58,7 +61,7 @@ const PostManagePage = () => {
     if (!window.confirm("Are you sure you want to delete this post?")) return;
     try {
       // if confirmed, sends a DELETE request to backend API to remove the post
-      await apiFetch(`http://localhost:3000/posts/${id}`, {
+      await apiFetch(`${import.meta.env.VITE_API_BASE_URL}/posts/${id}`, {
         method: "DELETE",
         // token from context
         token,

@@ -17,7 +17,7 @@ const CreatePost = () => {
   const handleCreate = async (data) => {
     try {
       // sends a POST request to create the post
-      await apiFetch("http://localhost:3000/posts/", {
+      await apiFetch("${import.meta.env.VITE_API_BASE_URL}/posts/", {
         method: "POST",
         // data payload gets passed into the request body
         body: data,
