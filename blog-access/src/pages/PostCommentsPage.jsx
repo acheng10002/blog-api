@@ -48,7 +48,7 @@ const PostCommentsPage = () => {
     // automatically includes auth header if token exists
   } = useFetchData(
     // freshKey forces a reload after mutations
-    `http://localhost:3000/posts/${postid}?k=${refreshKey}`,
+    `${import.meta.env.VITE_API_BASE_URL}/posts/${postid}?k=${refreshKey}`,
     token || undefined
   );
 
@@ -87,11 +87,14 @@ const PostCommentsPage = () => {
     try {
       /* sends a DELETE request to backend API, URL targets specific comment 
       using postid and id */
-      await apiFetch(`http://localhost:3000/posts/${postid}/comments/${id}`, {
-        method: "DELETE",
-        // token/JWT passed to authenticate the request
-        token,
-      });
+      await apiFetch(
+        `${import.meta.env.VITE_API_BASE_URL}/posts/${postid}/comments/${id}`,
+        {
+          method: "DELETE",
+          // token/JWT passed to authenticate the request
+          token,
+        }
+      );
       /* triggers a re-fetch of post/comment data by updating refreshKey 
       React sees refreshKey change and re-executes useFetchData (because url has
       changed!), fetching latest
@@ -119,7 +122,7 @@ const PostCommentsPage = () => {
       /* sends a PUT request to backend API, URL targets specific comment 
       using postid and commentId */
       await apiFetch(
-        `http://localhost:3000/posts/${postid}/comments/${commentId}`,
+        `${import.meta.env.VITE_API_BASE_URL}/posts/${postid}/comments/${commentId}`,
         {
           method: "PUT",
           // token/JWT passed to authenticate the request
@@ -156,13 +159,16 @@ const PostCommentsPage = () => {
     try {
       /* sends a POST request to backend API, URL targets specific comment 
       using postid */
-      await apiFetch(`http://localhost:3000/posts/${postid}/comments/`, {
-        method: "POST",
-        // token/JWT passed to authenticate the request
-        token,
-        // request payload includes new content
-        body: { content: newContent },
-      });
+      await apiFetch(
+        `${import.meta.env.VITE_API_BASE_URL}/posts/${postid}/comments/`,
+        {
+          method: "POST",
+          // token/JWT passed to authenticate the request
+          token,
+          // request payload includes new content
+          body: { content: newContent },
+        }
+      );
       // clears textarea after submit
       setNewContent("");
       // triggers a re-fetch of post/comment data by updating refreshKey
