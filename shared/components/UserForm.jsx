@@ -52,8 +52,8 @@ const UserForm = ({ mode }) => {
     try {
       // API call that chooses the correct endpoint based on the mode
       const endpoint = isLogin
-        ? "http://localhost:3000/auth/login"
-        : "http://localhost:3000/users/register";
+        ? `${import.meta.env.VITE_API_BASE_URL}/auth/login`
+        : `${import.meta.env.VITE_API_BASE_URL}/users/register`;
       // creates the request payload
       const payload = isLogin
         ? // uses application/x-www-form-urlencoded if the mode is login
