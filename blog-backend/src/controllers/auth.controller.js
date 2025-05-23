@@ -1,6 +1,6 @@
 /* Passport Local Strategy verifies credentials
 Passport populates req.user
-this controller with jsonwebtoken creates the JWT
+login controller with jsonwebtoken creates the JWT
 Passport JWT Strategy verifies JWT on future requests
 for creating and verifying JWTs */
 const jwt = require("jsonwebtoken");
@@ -19,10 +19,14 @@ callback only runs if authentication succeeds - req.user is the authenticated us
   secret - signature
   option - the token will expire in 1 h */
     const token = jwt.sign({ id: req.user.id }, SECRET, { expiresIn: "1h" });
-    /* server signs and sends the signed token back to the client in the response body 
-    this signed token will be attached to future requests, allowing the client
-    access to protected routes */
-    res.json({ token, redirectTo: `/users/${req.user.id}/posts` });
+    /* server signs and sends the signed JWT back to the client in the response body 
+    user will then attach the signed JWT to future requests, 
+    my API can verify the JWT in order to allow or deny access to the rest of a protected route */
+    res.json({
+      token,
+      user: { id: req.user.id, username: req.user.username },
+      redirectTo: `/users/${req.user.id}/posts`,
+    });
   };
 
 const logout = (req, res) => {

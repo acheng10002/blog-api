@@ -23,15 +23,15 @@ async function getAllPosts() {
 async function getPostById(postId) {
   // queries Post table via Prisma to find specific post
   return prisma.post.findUnique({
-    where: { id: postId },
+    where: { id: Number(postId) },
     include: {
       author: {
-        select: { username: true },
+        select: { id: true, username: true },
       },
       comments: {
         include: {
           author: {
-            select: { username: true },
+            select: { id: true, username: true },
           },
         },
       },

@@ -1,0 +1,42 @@
+<!-- 
+index.html ← my app's HTML entry point
+             - shouldn't have much besides the root div, bc React takes over from there
+   └── #root ← the single root div inside index.html where my entire React 
+               app is mounted
+        └── main.jsx ← my app's JS entry point
+                       - initializes React and renders the tol-level App component 
+                         into the DOM, usually into #root in index.html
+                       - main.jsx might import global styles, index.css 
+             └── <App /> ← root component of my app for my app's logic and structure 
+                       - styled with App.css
+                   └── components, routes, etc.
+
+index.css → global styles applied across entire app
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog API</title>
+  </head>
+  <body>
+    <!-- root div where my app is mounted -->
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+
+<!-- Vite - frontend build that that improves the dev experience compared to
+            older tools like CRA or Webpack
+- uses native ES modules for near-instant dev server startup
+- HMR (Hot Module Replacement) - instant updates in the browser when I change code
+- pre-bundling with esbuild - fast dependency resolution is Go-based esbuild
+- works with React, Vue, Svelte, etc.
+- uses Rollup for bundling when building for production 
+Webpack 
+- slower startup, bundles everything upfront
+- slower build speed
+-  full or partial rebuilds HMR 
+- mature and vast plugin ecosystem
+- mature support with Babel -->

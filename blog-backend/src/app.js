@@ -12,6 +12,8 @@ and authorization/verifying the token attached to future requests and
 checking that the user is who they claim to be before allowing access 
 to protected routes */
 const { localStrategy, jwtStrategy } = require("./config/passport");
+// CORS to allow frontend to access this backend
+const cors = require("cors");
 // three routers/inline middleware applied in route definitions below
 const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/users.routes");
@@ -21,6 +23,22 @@ const errorHandler = require("./middleware/errorHandler");
 
 // initializes the Express app
 const app = express();
+
+const allowedOrigins = ["http://localhost:5173", "http://localhost:5174"];
+
+// CORS middleware enables cross-origin requests (CORS) for the frontend origin
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 
 // global middleware parses incoming HTTP request bodies, req.body, used for API endpoints
 app.use(express.urlencoded({ extended: true }));
@@ -35,11 +53,15 @@ passport.use(jwtStrategy);
 app.use(passport.initialize());
 
 app.get("/", (req, res) => {
-  res.send("API is running");
+  res.redirect("/posts");
 });
 
 /* router-level middleware - route definitions that registers routers into 
-my main app */
+my main app 
+- backend routes use both HTTP method and the path to distinguish routes,
+- it's valid, standard RESTful design 
+- Express routes requests to different handlers based on the HTTP method used,
+  even if the URL path is the same */
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);

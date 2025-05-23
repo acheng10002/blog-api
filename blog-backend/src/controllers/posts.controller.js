@@ -30,9 +30,18 @@ const getPostByIdController = async (req, res) => {
     const post = await getPostById(postId);
 
     // return 404 status code if post not found
-    if (!post || !post.published) {
+    if (!post) {
       return res.status(404).json({ error: "Post not found" });
     }
+
+    // safely checks ownership
+    const isOwner = req.user && req.user.id === post.authorId;
+
+    // denies access if post is unpublished and viewer is not owner
+    if (!post.published && !isOwner) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+
     // if successful, return post as JSON
     res.json(post);
   } catch (err) {

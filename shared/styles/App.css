@@ -1,0 +1,66 @@
+// styling for root-level App component
+#root {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.draft {
+  color: gray;
+}
+
+.title {
+  text-align: center;
+  font-size: 3.2rem;
+  margin-right: 200px;
+}
+
+textarea {
+  display: block;
+  width: 800px;
+  height: 400px;
+  margin-bottom: 15px;
+}
+
+.all-posts {
+  padding-left: 0;
+}
+
+.each-post {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.new-post-content {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+.error {
+  color: red;
+}
+
+.not-found {
+  padding: 2rem;
+  text-align: center;
+}
+
+.comment {
+  display: block;
+  width: 800px;
+  height: 100px;
+  margin-bottom: 15px;
+}
+.add-comment {
+  margin-left: 38px;
+}

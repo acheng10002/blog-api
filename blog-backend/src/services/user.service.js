@@ -1,6 +1,7 @@
 // db access layer
 const prisma = require("../db/prisma");
 const { Prisma } = require("@prisma/client");
+const ApiError = require("../utils/ApiError");
 
 async function register(name, username, hash) {
   try {
@@ -20,18 +21,23 @@ async function register(name, username, hash) {
 }
 
 async function getUserPosts(authenticatedId) {
-  // queries the db using Prisma to find all Post records for this user
-  return prisma.post.findMany({
-    // queries where authorId matches the authenticated user's ID
-    where: { authorId: authenticatedId },
-    // orders results by descending id so most recent posts appear first
-    orderBy: { id: "desc" },
-    include: {
-      _count: {
-        select: { comments: true },
+  try {
+    // queries the db using Prisma to find all Post records for this user
+    return prisma.post.findMany({
+      // queries where authorId matches the authenticated user's ID
+      where: { authorId: authenticatedId },
+      // orders results by descending id so most recent posts appear first
+      orderBy: { createdAt: "desc" },
+      include: {
+        _count: {
+          select: { comments: true },
+        },
       },
-    },
-  });
+    });
+  } catch (err) {
+    console.error("Failed to query posts:", err);
+    throw err;
+  }
 }
 
 module.exports = {

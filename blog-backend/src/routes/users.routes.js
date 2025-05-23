@@ -9,11 +9,14 @@ const {
   registerController,
   getUserPostsController,
 } = require("../controllers/users.controller");
+// middleware that validates and sanitizes user input before the request reaches register
+const userValidationRules = require("../validators/userValidation");
+const { validate } = require("../validators/validate");
 
 // POST /users/ WORKS
 // this file is mounted on /users in app.js
 // user submits registration details
-router.post("/", registerController);
+router.post("/register", userValidationRules, validate, registerController);
 
 // GET /users/1/posts WORKS
 // protected route for getting the user's posts

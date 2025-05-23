@@ -24,8 +24,13 @@ async function createComment(content, postId, authorId) {
 }
 
 async function updateComment(commentId, content) {
+  console.log("Updating commentId:", commentId, "with content:", content);
+  const existing = await prisma.comment.findUnique({
+    where: { id: commentId },
+  });
+  console.log("Existing content before update:", existing.content);
   // queries Comment table via Prisma to update specific comment
-  return prisma.comment.update({
+  const updated = await prisma.comment.update({
     where: { id: commentId },
     /* data passed to Prisma to insert into the db
           maps to the fields in my Prisma schema */
@@ -40,6 +45,12 @@ async function updateComment(commentId, content) {
       },
     },
   });
+  const fresh = await prisma.comment.findUnique({
+    where: { id: commentId },
+  });
+  console.log("Fresh comment from DB (post-update):", fresh);
+
+  return updated;
 }
 
 async function deleteComment(commentId) {

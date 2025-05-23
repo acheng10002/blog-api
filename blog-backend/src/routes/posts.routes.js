@@ -2,6 +2,7 @@
 const express = require("express");
 // for handling authentication
 const passport = require("passport");
+const { optionalAuth } = require("../middleware/optionalAuth.js");
 // creates a sub-app for handling user routes
 const router = express.Router();
 /* controller functions to fullfill public all posts, requests */
@@ -18,8 +19,8 @@ const {
 router.get("/", getAllPostsController);
 
 // GET /posts/1 WORKS
-// public route for getting specific post with its comments
-router.get("/:postid", getPostByIdController);
+// public * protected route for getting specific post with its comments
+router.get("/:postid", optionalAuth, getPostByIdController);
 
 // POST /posts/ WORKS
 // protected route for creating a post as a logged in user

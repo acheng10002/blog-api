@@ -2,6 +2,13 @@
  * tells Prisma to generate a client library that I can use in my app
  * to query the db
  * - the client outputs to node_modules/.prisma/client
+ * - monorep with each app, backend, posts frontend, and comments frontend,
+ * in their own directory
+ * - blog has posts and comments
+ * - users must leave their username/email with their comments
+ * - createdAt timestamp for posts and comments
+ * - posts have titles
+ * - comments do not have titles
  */
 generator client {
     provider = "prisma-client-js"
@@ -15,6 +22,7 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+// defines my models in Prisma
 // posts and comments
 model Post {
     id        Int       @id @default(autoincrement())
@@ -24,9 +32,7 @@ model Post {
     title     String    @db.VarChar(255)
     content   String?
     /**
-     * designates published vs unpublished posts
-     * unpublished posts are in the db but are not published for the
-     * public to read
+     * designates published/public vs unpublished/private posts
      */
     published Boolean   @default(false)
     author    User      @relation(fields: [authorId], references: [id])
@@ -47,6 +53,10 @@ model Comment {
     postId    Int
 }
 
+/**
+ * minimal user model with blog authors and normal users
+ * allows for easier route protection via authentication
+ */
 model User {
     id       Int       @id @default(autoincrement())
     name     String?

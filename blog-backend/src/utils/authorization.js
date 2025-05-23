@@ -1,3 +1,4 @@
+// throws an error if the user isn't the owner of the resource
 const ApiError = require("./ApiError");
 
 function authorizeOwnership(resource, userId) {

@@ -66,7 +66,7 @@ const deleteCommentController = async (req, res, next) => {
       action: () => deleteComment(commentId),
     });
     // return a success message as JSON
-    res.json({ message: "Comment deleted successfully", deletedComment });
+    res.status(204).json({ message: "Comment deleted successfully" });
     // error handling
   } catch (err) {
     next(err);
