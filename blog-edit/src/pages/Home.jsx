@@ -22,49 +22,22 @@ const Home = () => {
 
   return (
     <SharedHomeView
+      // currently authenticated user or null if unauthenticated
       user={user}
+      // array of post objects to display
       posts={posts}
+      // flag indicating if data is still being fetched
       loading={loading}
+      // handler called when post is clicked/views
       onView={handleView}
+      // handler functions for auth actions
       onLogin={() => navigate("/auth/login")}
       onRegister={() => navigate("/users/register")}
       onLogout={handleLogout}
+      // string representing current UI mode
       mode="edit"
     />
   );
-  /*
-  return (
-    <>
-      <Header
-        mode="edit"
-        user={user}
-        onLogin={() => navigate("/auth/login")}
-        onRegister={() => navigate("/users/register")}
-        onLogout={handleLogout}
-      />
-      <div>
-        <h1>Published Posts</h1>
-        {/* if loading is true, placeholder message 
-        {loading ? (
-          <p>Loading posts...</p>
-        ) : // if posts array is empty, display a fallback message
-        posts?.length === 0 ? (
-          <p>No posts available.</p>
-        ) : (
-          // iterates over posts array
-          posts.map((post) => (
-            <PostListItem
-              key={post.id}
-              post={post}
-              onView={handleView}
-              isPublic={true}
-            />
-          ))
-        )}
-      </div>
-    </>
-  );
-  */
 };
 
 export default Home;
