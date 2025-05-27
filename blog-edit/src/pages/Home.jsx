@@ -13,7 +13,7 @@ const Home = () => {
 
   // fetches data and returns object containing posts data and loading
   const { data: posts, loading } = useFetchData(
-    "${import.meta.env.VITE_API_BASE_URL}/posts"
+    `${import.meta.env.VITE_API_BASE_URL}/posts`
   );
 
   const handleView = (postId) => {
