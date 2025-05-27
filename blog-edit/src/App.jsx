@@ -27,6 +27,7 @@ const App = () => {
           <UserForm
             key="register"
             mode="register"
+            onRegisterSuccess={() => navigate("/auth/login")}
             onBackToPosts={() => navigate(`/`)}
           />
         }
@@ -37,6 +38,7 @@ const App = () => {
           <UserForm
             key="login"
             mode="login"
+            onLoginSuccess={(user) => navigate(`/users/${user.id}/posts`)}
             onBackToPosts={() => navigate(`/`)}
           />
         }

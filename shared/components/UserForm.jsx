@@ -79,9 +79,11 @@ const UserForm = ({ mode, onBackToPosts }) => {
       if (isLogin) {
         setTokenAndUser(data.token, data.user);
         // redirects to the user's posts page or to a provided URL
-        navigate(`/users/${data.user.id}/posts`);
+        // navigate(`/users/${data.user.id}/posts`);
+        onLoginSuccess(data.user);
       } else {
-        navigate("/auth/login");
+        // navigate("/auth/login");
+        onRegisterSuccess();
       }
     } catch (err) {
       // catches network or server errors
@@ -161,7 +163,9 @@ const UserForm = ({ mode, onBackToPosts }) => {
       {error && <p className="error">{error}</p>}
       {/* renders submit button with appropriate label */}
       <button type="submit">{isLogin ? "Login" : "Register"}</button>
-      <button onClick={onBackToPosts}>Back to Posts</button>
+      <button type="button" onClick={onBackToPosts}>
+        Back to Posts
+      </button>
     </form>
   );
 };
