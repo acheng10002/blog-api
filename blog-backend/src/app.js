@@ -24,7 +24,10 @@ const errorHandler = require("./middleware/errorHandler");
 // initializes the Express app
 const app = express();
 
-const allowedOrigins = ["https://blog-access.pages.dev"];
+const allowedOrigins = [
+  "https://blog-access.pages.dev",
+  "https://blog-edit.pages.dev",
+];
 
 // CORS middleware enables cross-origin requests (CORS) for the frontend origin
 app.use(
