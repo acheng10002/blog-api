@@ -1,6 +1,5 @@
 const PostActions = ({ isAuthor, post, onEdit, onDelete }) => {
   if (!isAuthor) return null;
-  console.log("PostActions received post:", post);
   return (
     <>
       {/* button to publish unpublished post or to unpublish published ones */}

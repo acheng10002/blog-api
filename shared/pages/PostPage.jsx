@@ -33,9 +33,6 @@ const PostPage = ({
   // callback passed in by frontend
   onBackToPosts,
 }) => {
-  console.log("mode:", mode);
-  console.log("post:", post);
-  console.log("user:", user);
   return (
     <div>
       <h1>{post.title}</h1>
