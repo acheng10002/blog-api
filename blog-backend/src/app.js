@@ -25,7 +25,7 @@ const errorHandler = require("./middleware/errorHandler");
 const app = express();
 
 const allowedOrigins = [
-  "https://2914146f.blog-access.pages.dev",
+  "https://blog-access.pages.dev",
   "http://localhost:5174",
 ];
 
