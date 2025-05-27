@@ -22,10 +22,10 @@ const PostCommentsPage = () => {
   const { postid, commentId } = useParams();
   // retrieves currently authenticated user and token from context
   const { user, token } = useAuth();
-  // hook that access logout from AuthContext
-  const handleLogout = useHandleLogout();
   // initializes hook that navigates users to different route
   const navigate = useNavigate();
+  // hook that access logout from AuthContext
+  const handleLogout = useHandleLogout(navigate);
 
   // state for edited comment content
   const [editedContent, setEditedContent] = useState("");
@@ -226,6 +226,7 @@ const PostCommentsPage = () => {
             />
           </>
         }
+        onBackToPosts={() => navigate(`/`)}
       />
     </>
   );

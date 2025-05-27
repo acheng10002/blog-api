@@ -1,9 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useFetchData } from "@shared/hooks/useFetchData";
 import { useAuth } from "@shared/hooks/useAuth";
-// import PostListItem from "@shared/components/PostListItem";
 import SharedHomeView from "@shared/pages/SharedHomeView";
-// import Header from "@shared/components/Header";
 import { useHandleLogout } from "@shared/hooks/useHandleLogout";
 
 const Home = () => {
@@ -11,7 +9,7 @@ const Home = () => {
   const navigate = useNavigate();
   // retrieve authenticated user
   const { user } = useAuth();
-  const handleLogout = useHandleLogout();
+  const handleLogout = useHandleLogout(navigate);
 
   // fetches data and returns object containing posts data and loading
   const { data: posts, loading } = useFetchData(

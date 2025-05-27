@@ -1,11 +1,9 @@
 /* custom hook that accesses logout from AuthContext and navigate users
 to root route */
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "@shared/hooks/useAuth";
 
-export const useHandleLogout = () => {
+export const useHandleLogout = (navigate) => {
   const { logout } = useAuth();
-  const navigate = useNavigate();
 
   return () => {
     logout();

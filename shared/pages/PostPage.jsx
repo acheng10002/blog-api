@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 // components for post-level actions and the list of comments
 import PostActions from "@shared/components/PostActions";
 import CommentList from "@shared/components/CommentList";
@@ -30,8 +29,9 @@ const PostPage = ({
   onSubmitEditedComment,
   // callback to cancel editing and reset UI state
   onCancelEdit,
+  // callback passed in by frontend
+  onBackToPosts,
 }) => {
-  const navigate = useNavigate();
   return (
     <div>
       <h1>{post.title}</h1>
@@ -82,7 +82,7 @@ const PostPage = ({
           post={post}
         />
       )}
-      <button onClick={() => navigate(`/`)}>Back to Posts</button>
+      <button onClick={onBackToPosts}>Back to Posts</button>
     </div>
   );
 };

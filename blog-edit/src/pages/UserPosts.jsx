@@ -14,7 +14,7 @@ const UserPosts = () => {
   // // retrieves currently authenticated user and token
   const { user, token } = useAuth();
   // initializes custom hook to access logout and navigate user to rook
-  const handleLogout = useHandleLogout();
+  const handleLogout = useHandleLogout(navigate);
 
   const {
     data: posts,

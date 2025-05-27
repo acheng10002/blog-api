@@ -12,7 +12,7 @@ const Home = () => {
   // retrieve authenticated user
   const { user } = useAuth();
   // hook that accesses logout from AuthContext
-  const handleLogout = useHandleLogout();
+  const handleLogout = useHandleLogout(navigate);
 
   // fetches data and returns object containing posts data and loading
   const { data: posts, loading } = useFetchData(

@@ -18,7 +18,7 @@ const PostManagePage = () => {
   const { user, token } = useAuth();
   // initializes hook that navigates users to different route
   const navigate = useNavigate();
-  const handleLogout = useHandleLogout();
+  const handleLogout = useHandleLogout(navigate);
 
   /* fetches data from my API using the postid and returns object containing 
   post data, loading, error */
@@ -102,6 +102,7 @@ const PostManagePage = () => {
         onPostEdit={handlePostEdit}
         // cb triggered when user confirms deletion of the post
         onPostDelete={handlePostDelete}
+        onBackToPosts={() => navigate(`/`)}
       />
     </>
   );

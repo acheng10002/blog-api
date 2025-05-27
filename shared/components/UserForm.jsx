@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 // custom function to run client-side validation on the form data
 import { validateUserForm } from "@shared/validation/validateUserForm";
 import { useAuth } from "@shared/hooks/useAuth";
 
 // mode prop determines whether this is a login or register form
-const UserForm = ({ mode }) => {
-  const navigate = useNavigate();
+const UserForm = ({ mode, onBackToPosts }) => {
   // retrieves updater function for token and user
   const { setTokenAndUser } = useAuth();
   // isLogin is true if mode is login, false otherwise
@@ -163,7 +161,7 @@ const UserForm = ({ mode }) => {
       {error && <p className="error">{error}</p>}
       {/* renders submit button with appropriate label */}
       <button type="submit">{isLogin ? "Login" : "Register"}</button>
-      <button onClick={() => navigate(`/`)}>Back to Posts</button>
+      <button onClick={onBackToPosts}>Back to Posts</button>
     </form>
   );
 };
