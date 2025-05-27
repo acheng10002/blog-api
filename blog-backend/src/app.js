@@ -24,7 +24,10 @@ const errorHandler = require("./middleware/errorHandler");
 // initializes the Express app
 const app = express();
 
-const allowedOrigins = ["http://localhost:5173", "http://localhost:5174"];
+const allowedOrigins = [
+  "fba6f793.blog-access.pages.dev",
+  "http://localhost:5174",
+];
 
 // CORS middleware enables cross-origin requests (CORS) for the frontend origin
 app.use(
