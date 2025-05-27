@@ -29,7 +29,7 @@ export function AuthProvider({ children }) {
     // if token exists but user is null, fetches the user's profile
     if (token && !user) {
       // sends a request to /auth/me to validate the token and retrieve user data
-      fetch("http://localhost:3000/auth/me", {
+      fetch("${import.meta.env.VITE_API_BASE_URL}/auth/me", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
