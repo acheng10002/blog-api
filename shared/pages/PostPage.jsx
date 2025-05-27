@@ -8,6 +8,7 @@ const PostPage = ({
   user,
   // post object to display
   post,
+  isAuthor,
   // event handlers for editing/deleting post and comments
   // callback to edit a post
   onPostEdit,

@@ -42,7 +42,7 @@ const PostManagePage = () => {
   if (!post) return <p>Post not found.</p>;
 
   // checks if user is post author
-  const isAuthor = user && post.author?.id === user.id;
+  const isAuthor = user && post.author && user.id === post.author.id;
 
   if (!isAuthor) {
     return <p>You are not authorized to manage this post.</p>;
