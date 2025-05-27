@@ -41,14 +41,12 @@ const PostManagePage = () => {
   // if no post, render a fallback message
   if (!post) return <p>Post not found.</p>;
 
-  /*
   // checks if user is post author
   const isAuthor = user && post.author?.id === user.id;
 
   if (!isAuthor) {
     return <p>You are not authorized to manage this post.</p>;
-  } 
-  */
+  }
 
   // click handler navigates user to post edit view
   const handlePostEdit = () => {
@@ -98,6 +96,7 @@ const PostManagePage = () => {
         post={post}
         // currently authenticated user or null if unauthenticated
         user={user}
+        isAuthor={isAuthor}
         // cb triggered when user initiates an edit on the post
         onPostEdit={handlePostEdit}
         // cb triggered when user confirms deletion of the post

@@ -32,11 +32,14 @@ const PostPage = ({
   // callback passed in by frontend
   onBackToPosts,
 }) => {
+  console.log("mode:", mode);
+  console.log("post:", post);
+  console.log("user:", user);
   return (
     <div>
       <h1>{post.title}</h1>
       <p>
-        <strong>By:</strong>
+        <strong>By: </strong>
         {post.author?.username}
       </p>
       <p>{post.content}</p>
@@ -77,6 +80,7 @@ const PostPage = ({
        PostActions component */}
       {mode === "edit" && (
         <PostActions
+          isAuthor={isAuthor}
           onEdit={onPostEdit}
           onDelete={() => onPostDelete(post.id)}
           post={post}
