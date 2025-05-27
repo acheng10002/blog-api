@@ -4,7 +4,12 @@ import { validateUserForm } from "@shared/validation/validateUserForm";
 import { useAuth } from "@shared/hooks/useAuth";
 
 // mode prop determines whether this is a login or register form
-const UserForm = ({ mode, onBackToPosts }) => {
+const UserForm = ({
+  mode,
+  onRegisterSuccess,
+  onLoginSuccess,
+  onBackToPosts,
+}) => {
   // retrieves updater function for token and user
   const { setTokenAndUser } = useAuth();
   // isLogin is true if mode is login, false otherwise
