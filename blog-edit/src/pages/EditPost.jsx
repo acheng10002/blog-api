@@ -4,6 +4,7 @@ import { useAuth } from "@shared/hooks/useAuth";
 import { useFetchData } from "@shared/hooks/useFetchData";
 import { apiFetch } from "@shared/utils/api";
 import PostCard from "@shared/components/PostCard";
+import Header from "@shared/components/Header";
 import LoadingOrError from "@shared/components/LoadingOrError";
 
 const EditPost = () => {
@@ -55,6 +56,13 @@ const EditPost = () => {
 
   return (
     <>
+      <Header
+        mode="edit"
+        user={user}
+        onLogin={() => navigate("/auth/login")}
+        onRegister={() => navigate("/users/register")}
+        onLogout={logout}
+      />
       {/* if PUT request error, show it above the form */}
       {submitError && <p className="error">{submitError}</p>}
       <PostCard
