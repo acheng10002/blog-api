@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "@shared/hooks/useAuth";
 import { useFetchData } from "@shared/hooks/useFetchData";
 import { apiFetch } from "@shared/utils/api";
+import { useHandleLogout } from "@shared/hooks/useHandleLogout";
 import PostCard from "@shared/components/PostCard";
 import Header from "@shared/components/Header";
 import LoadingOrError from "@shared/components/LoadingOrError";
@@ -54,6 +55,8 @@ const EditPost = () => {
   // if no post data, render a fallback message
   if (!initialValues) return <p>Post not found.</p>;
 
+  const handleLogout = useHandleLogout(navigate);
+
   return (
     <>
       <Header
@@ -61,7 +64,7 @@ const EditPost = () => {
         user={user}
         onLogin={() => navigate("/auth/login")}
         onRegister={() => navigate("/users/register")}
-        onLogout={logout}
+        onLogout={handleLogout}
       />
       {/* if PUT request error, show it above the form */}
       {submitError && <p className="error">{submitError}</p>}
