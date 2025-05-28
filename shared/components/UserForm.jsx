@@ -169,7 +169,7 @@ const UserForm = ({
       {/* renders submit button with appropriate label */}
       <button type="submit">{isLogin ? "Login" : "Register"}</button>
       <button type="button" onClick={onBackToPosts}>
-        Back to Posts
+        Back to All Posts
       </button>
     </form>
   );
