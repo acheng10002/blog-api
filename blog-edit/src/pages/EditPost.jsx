@@ -75,6 +75,13 @@ const EditPost = () => {
         onSubmit={handleUpdate}
         buttonLabel="Update Post"
       />
+      <button
+        onClick={() =>
+          user ? navigate(`/users/${user.id}/posts`) : navigate("/")
+        }
+      >
+        Back to {user ? "Your Posts" : "Home"}
+      </button>
     </>
   );
 };
