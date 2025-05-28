@@ -205,26 +205,28 @@ const PostCommentsPage = () => {
         onCommentDelete={handleCommentDelete}
         editCommentErrors={editCommentErrors}
         renderCommentForm={
-          <>
-            {newCommentErrors.length > 0 && (
-              <ul>
-                {/* iterates over newCommentErrors array generating a li for
+          user ? (
+            <>
+              {newCommentErrors.length > 0 && (
+                <ul>
+                  {/* iterates over newCommentErrors array generating a li for
                 each error message */}
-                {newCommentErrors.map((err, index) => (
-                  // display each error message in a li
-                  <li key={index}>{err}</li>
-                ))}
-              </ul>
-            )}
-            <CommentForm
-              // callback triggered on form submission
-              onSubmit={handleCreateComment}
-              // current value of comment textarea
-              content={newContent}
-              // updates newContent when user types in textarea
-              onChange={(e) => setNewContent(e.target.value)}
-            />
-          </>
+                  {newCommentErrors.map((err, index) => (
+                    // display each error message in a li
+                    <li key={index}>{err}</li>
+                  ))}
+                </ul>
+              )}
+              <CommentForm
+                // callback triggered on form submission
+                onSubmit={handleCreateComment}
+                // current value of comment textarea
+                content={newContent}
+                // updates newContent when user types in textarea
+                onChange={(e) => setNewContent(e.target.value)}
+              />
+            </>
+          ) : null
         }
         onBackToPosts={() => navigate(`/`)}
       />
@@ -233,3 +235,5 @@ const PostCommentsPage = () => {
 };
 
 export default PostCommentsPage;
+
+/* Comment Form should not be visible if user not logged in */
