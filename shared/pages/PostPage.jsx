@@ -84,7 +84,7 @@ const PostPage = ({
           post={post}
         />
       )}
-      <button onClick={onBackToPosts}>Back to Posts</button>
+      <button onClick={onBackToPosts}>Back to All Posts</button>
     </div>
   );
 };

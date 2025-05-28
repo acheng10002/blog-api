@@ -70,6 +70,7 @@ const UserPosts = () => {
             )}
           </>
         )}
+        <button onClick={() => navigate(`/`)}>Back to All Posts</button>
       </div>
     </>
   );
