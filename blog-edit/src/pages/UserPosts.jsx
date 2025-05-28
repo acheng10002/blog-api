@@ -45,7 +45,7 @@ const UserPosts = () => {
         ) : (
           <>
             {/* user name's or your */}
-            <h1>{user.name ? `${user.name}'s Posts` : "Your Posts"}</h1>
+            <h1>{user.name ? `${user.name}'s Posts` : "My Posts"}</h1>
             {/* when clicked, renders CreatePost.jsx */}
             <button onClick={() => navigate(`/users/${user.id}/posts/create`)}>
               Create New Post

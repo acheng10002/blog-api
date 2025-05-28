@@ -21,22 +21,29 @@ const Home = () => {
   };
 
   return (
-    <SharedHomeView
-      // currently authenticated user or null if unauthenticated
-      user={user}
-      // array of post objects to display
-      posts={posts}
-      // flag indicating if data is still being fetched
-      loading={loading}
-      // handler called when post is clicked/views
-      onView={handleView}
-      // handler functions for auth actions
-      onLogin={() => navigate("/auth/login")}
-      onRegister={() => navigate("/users/register")}
-      onLogout={handleLogout}
-      // string representing current UI mode
-      mode="edit"
-    />
+    <>
+      <SharedHomeView
+        // currently authenticated user or null if unauthenticated
+        user={user}
+        // array of post objects to display
+        posts={posts}
+        // flag indicating if data is still being fetched
+        loading={loading}
+        // handler called when post is clicked/views
+        onView={handleView}
+        // handler functions for auth actions
+        onLogin={() => navigate("/auth/login")}
+        onRegister={() => navigate("/users/register")}
+        onLogout={handleLogout}
+        // string representing current UI mode
+        mode="edit"
+      />
+      {user && user.id && (
+        <button onClick={() => navigate(`/users/${user.id}/posts`)}>
+          View My Posts
+        </button>
+      )}
+    </>
   );
 };
 

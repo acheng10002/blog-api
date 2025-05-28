@@ -44,12 +44,6 @@ const PostManagePage = () => {
   // checks if user is post author
   const isAuthor = user && post.author && user.id === post.author.id;
 
-  /*
-  if (!isAuthor) {
-    return <p>You are not authorized to manage this post.</p>;
-  }
-  */
-
   // click handler navigates user to post edit view
   const handlePostEdit = () => {
     navigate(`/users/${user.id}/posts/${postid}/edit`);
